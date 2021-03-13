@@ -16,7 +16,7 @@
   margin: 2px 0;
 
   &:focus {
-    border-color: var(--blue-300);
+    border-color: var(--red-400);
     box-shadow: 0 0 0 4px rgba(0, 149, 255, 0.15);
     color: var(--black);
     outline: 0;

@@ -6,7 +6,7 @@ import styles from './tag.module.css'
 
 const Tag = ({ children, className, count, ...props }) => {
   return count ? (
-    <div>
+    <div style={{}}>
       <Link href={{ pathname: '/', query: { tag: children } }}>
         <a className={cn(styles.tag, className)} {...props}>
           {children}
@@ -16,6 +16,7 @@ const Tag = ({ children, className, count, ...props }) => {
       &nbsp;
       <span className={styles.count}>{count}</span>
     </div>
+    
   ) : (
     <Link href={{ pathname: '/', query: { tag: children } }}>
       <a className={cn(styles.tag, className)} {...props}>

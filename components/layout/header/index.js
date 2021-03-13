@@ -11,7 +11,7 @@ import { AuthContext } from '../../../store/auth'
 import Button from '../../button'
 import NavigationDropdown from '../../navigation-dropdown'
 import { Menu, Close, Logo } from '../../icons'
-
+import UserAvatar from "../../user-card/avatar-card/index"
 import styles from './header.module.css'
 
 const Header = ({ className, ...props }) => {
@@ -46,13 +46,14 @@ const Header = ({ className, ...props }) => {
         <Button className={styles.logo} href="/">
           <Logo />
           <p>
-            clone-of-stack<span>overflow</span>
+            <span>Community</span>
           </p>
         </Button>
         <div style={{ flex: 1 }}></div>
 
         {isAuthenticated() ? (
           <div className={styles.userInfo}>
+          {/* <h5> */}
             <p>
               Welcome{' '}
               <Link
@@ -63,6 +64,7 @@ const Header = ({ className, ...props }) => {
               </Link>
             </p>
             <a onClick={() => logout()}>log out</a>
+            {/* </h5> */}
           </div>
         ) : (
           <>

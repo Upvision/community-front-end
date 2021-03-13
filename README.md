@@ -7,8 +7,6 @@
   </h1>
 </a>
 
-This project was bootstrapped from the stackoverflow-clone made by @salihozdemir available [here](https://github.com/salihozdemir/stackoverflow-clone).
-
 ## :rocket: Tech Stack
 
 - ReactJs
