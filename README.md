@@ -59,9 +59,17 @@ $ yarn test
 
 ## :scroll: Todo
 
+- [ ] Basic UI chamge
+- [ ] Add text editor for post
+- [ ] Implement edit question/comment
+- [ ] Edit signup/login page for google auth
+- [ ] Add meta data in profile page
+- [ ] Add filter in user
+- [ ] Implementation of notification 
+- [ ] Add search bar in home page
 - [ ] Add missing components to storybook
 - [ ] Complete missing server tests
-- [ ] Add text editor for post
+
 
 ## :memo: License
 
