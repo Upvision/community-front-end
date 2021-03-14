@@ -86,11 +86,11 @@ a {
 }
 
 .not-found {
-  color: var(--red-500);
+  color: var(--blue-600);
   margin-left: 24px;
 }
 
 .not-found-questions {
   margin-top: 10px;
   text-align: center;
-} 
+}
