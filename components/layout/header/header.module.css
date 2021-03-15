@@ -43,6 +43,49 @@
     transition: all ease-in-out 0.1s;
   }
 }
+
+.logo {
+  width: 3%;
+  display: flex;
+  font-size: 50%;
+  font-weight: 200;
+  text-align: right;
+}
+
+@media screen and (max-width: 992px) {
+  .logo {
+    width: 10%;
+    display: flex;
+    font-size: 50%;
+    font-weight: 200;
+    text-align: right;
+  }
+  .brand {
+    margin-left: 1.5%;
+    font-weight: bold;
+    font-size: 10%px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .logo {
+    width: 4%;
+    display: flex;
+    font-size: 50%;
+    font-weight: 200;
+    text-align: right;
+  }
+  .brand {
+    margin-left: 1.5%;
+    font-weight: bold;
+    font-size: 10%px;
+  }
+}
+.brand {
+  margin-left: 1.5%;
+  font-weight: bold;
+  font-size: 15%px;
+}
+/* 
 .logo {
   display: flex;
   align-items: center;
@@ -78,7 +121,7 @@
     font-size: 27px;
     margin-right: 3px;
   }
-}
+} */
 
 .auth {
   padding-top: 8px !important;

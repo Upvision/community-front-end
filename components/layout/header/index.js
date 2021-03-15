@@ -10,7 +10,8 @@ import { AuthContext } from '../../../store/auth'
 
 import Button from '../../button'
 import NavigationDropdown from '../../navigation-dropdown'
-import { Menu, Close, Logo } from '../../icons'
+import { Menu, Close } from '../../icons'
+import Logo from '../../../icons/logo.svg'
 import UserAvatar from "../../user-card/avatar-card/index"
 import styles from './header.module.css'
 
@@ -45,10 +46,11 @@ const Header = ({ className, ...props }) => {
         </div>
         <Button className={styles.logo} href="/">
           <Logo />
-          <p>
-            <span>Community</span>
-          </p>
         </Button>
+        <div className={styles.brand}>
+          <h4>NITD Community</h4>
+        </div>
+        {/* </div> */}
         <div style={{ flex: 1 }}></div>
 
         {isAuthenticated() ? (
