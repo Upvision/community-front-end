@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 
-import { Logo } from '../icons'
+import Logo  from '../../icons/logo.svg'
 import LoginForm from './login-form'
 import SignUpForm from './signup-form'
 

@@ -5,6 +5,8 @@
 }
 
 .logo {
+  height: 100px;
+  width: auto;
   font-size: 60px;
   margin-bottom: 15px;
 }
