@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { GoogleLogin } from 'react-google-login'
+import axios from 'axios';
 
 import { publicFetch } from '../../../util/fetcher'
 import { AuthContext } from '../../../store/auth'
@@ -12,10 +14,41 @@ import Button from '../../button'
 import styles from './signup-form.module.css'
 
 const SignupForm = () => {
+  const responseSuccessGoogle = (response) => {
+    // console.log(response)
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/api/googlelogin',
+      data: {tokenId: response.tokenId}
+    })
+    .then(response => {
+      console.log(response)
+    })
+
+    // axios.get('http://localhost:8080/api/googlelogin')
+    // .then(function (response) {
+    //   // handle success
+    //   console.log(response.data);
+    // })
+    // .catch(function (error) {
+    //   // handle error
+    //   console.log(error);
+    // })
+    // .then(function () {
+    //   // always executed
+    //   console.log("I will always execute")
+    // });
+  
+}
+
+
+
+
   const { setAuthState } = useContext(AuthContext)
   const { setIsComponentVisible } = useContext(ModalContext)
 
   const [loading, setLoading] = useState(false)
+
 
   return (
     <Formik
@@ -95,6 +128,17 @@ const SignupForm = () => {
             errorMessage={
               errors.passwordConfirmation && errors.passwordConfirmation
             }
+          />
+          <GoogleLogin
+          clientId="613584530661-s728h4rlgc4f63tnjaeg13s7dvb19vnk.apps.googleusercontent.com"
+          buttonText="Verify College Mail Id"
+          onSuccess={responseSuccessGoogle}
+          // onFailure={responseFailureGoogle}
+    cookiePolicy={'single_host_origin'}
+    className={styles.submitButton}
+            disabled={isSubmitting}
+            isLoading={loading}
+            type="submit"
           />
           <p className={styles.status}>{status}</p>
           <Button
