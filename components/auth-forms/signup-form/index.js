@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { GoogleLogin } from 'react-google-login'
+import axios from 'axios';
 
 import { publicFetch } from '../../../util/fetcher'
 import { AuthContext } from '../../../store/auth'
@@ -12,10 +14,28 @@ import Button from '../../button'
 import styles from './signup-form.module.css'
 
 const SignupForm = () => {
+  const [verified, setVerified] = useState(false);
+  const [showmessage, setmessage] = useState(" ");
+  const responseSuccessGoogle = (response) => {
+    // console.log(response)
+    axios({
+      method: 'POST',
+      url: 'http://localhost:8080/api/googlelogin',
+      data: {tokenId: response.tokenId}
+    })
+    .then(response => {
+      // console.log(response.data.status)
+      setVerified(response.data.status)
+    })
+}
+
+console.log(verified)
+
   const { setAuthState } = useContext(AuthContext)
   const { setIsComponentVisible } = useContext(ModalContext)
 
   const [loading, setLoading] = useState(false)
+
 
   return (
     <Formik
@@ -58,7 +78,21 @@ const SignupForm = () => {
         handleSubmit,
         isSubmitting
       }) => (
+        
         <form onSubmit={handleSubmit} className={styles.form}>
+        <div style={{textAlign: "center"}}>
+        <GoogleLogin
+          clientId="613584530661-s728h4rlgc4f63tnjaeg13s7dvb19vnk.apps.googleusercontent.com"
+          buttonText={verified ? (<div style={{color:"green",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>Verified! 😍 </h3></div>) : 
+          (<div style={{color:"Red",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>Verify College Mail Id 🙄</h3></div>)}
+          disabled={verified}
+          onSuccess={responseSuccessGoogle}
+          cookiePolicy={'single_host_origin'}
+          className={styles.submitButton}
+          />
+          </div>
           <FormInput
             label="Username"
             type="text"
@@ -96,12 +130,13 @@ const SignupForm = () => {
               errors.passwordConfirmation && errors.passwordConfirmation
             }
           />
+          
           <p className={styles.status}>{status}</p>
           <Button
+          full
             primary
-            full
             className={styles.submitButton}
-            disabled={isSubmitting}
+            disabled={!verified}
             isLoading={loading}
             type="submit"
           >
