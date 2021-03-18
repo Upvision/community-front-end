@@ -1,6 +1,7 @@
 module.exports = {
   env: {
-    SITE_NAME: process.env.SITE_NAME
+    SITE_NAME: process.env.SITE_NAME,
+    GOOGLE_AUTH: process.env.GOOGLE_AUTH
   },
   webpack(config) {
     config.module.rules.push({

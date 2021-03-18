@@ -5,8 +5,13 @@ const baseURL =
     ? 'http://localhost:8080/api'
     : `https://${process.env.SITE_NAME}/api`
 
+const googleOAuth = 
+  process.env.NODE_ENV === 'development'
+    ? '0'
+    : process.env.GOOGLE_AUTH
+
 const publicFetch = axios.create({
   baseURL
 })
 
-export { publicFetch, baseURL }
+export { publicFetch, baseURL, googleOAuth }
