@@ -1,9 +1,7 @@
 module.exports = {
   env: {
     SITE_NAME: process.env.SITE_NAME
-  }
-}
-module.exports = {
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
