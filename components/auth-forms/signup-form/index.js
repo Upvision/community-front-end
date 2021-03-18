@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { GoogleLogin } from 'react-google-login'
 import axios from 'axios';
 
-import { publicFetch } from '../../../util/fetcher'
+import { publicFetch, googleOAuth } from '../../../util/fetcher'
 import { AuthContext } from '../../../store/auth'
 import ModalContext from '../../../store/modal'
 
@@ -17,14 +17,12 @@ const SignupForm = () => {
   const [verified, setVerified] = useState(false);
   const [showmessage, setmessage] = useState(" ");
   const responseSuccessGoogle = (response) => {
-    // console.log(response)
     axios({
       method: 'POST',
       url: 'http://localhost:8080/api/googlelogin',
       data: {tokenId: response.tokenId}
     })
     .then(response => {
-      // console.log(response.data.status)
       setVerified(response.data.status)
     })
 }
@@ -82,11 +80,11 @@ console.log(verified)
         <form onSubmit={handleSubmit} className={styles.form}>
         <div style={{textAlign: "center"}}>
         <GoogleLogin
-          clientId="613584530661-s728h4rlgc4f63tnjaeg13s7dvb19vnk.apps.googleusercontent.com"
-          buttonText={verified ? (<div style={{color:"green",fontWeight:"bold",fontFamily:"Comic Sans"}}>
-          <h3>Verified! 😍 </h3></div>) : 
-          (<div style={{color:"Red",fontWeight:"bold",fontFamily:"Comic Sans"}}>
-          <h3>Verify College Mail Id 🙄</h3></div>)}
+          clientId={googleOAuth}
+          buttonText={verified ? (<div style={{color:"#5CDB95",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>College Email verified!</h3></div>) : 
+          (<div style={{color:"#F64C72",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>Verify your college email Id</h3></div>)}
           disabled={verified}
           onSuccess={responseSuccessGoogle}
           cookiePolicy={'single_host_origin'}
@@ -136,7 +134,7 @@ console.log(verified)
           full
             primary
             className={styles.submitButton}
-            disabled={!verified}
+            disabled={(!verified) && isSubmitting}
             isLoading={loading}
             type="submit"
           >
