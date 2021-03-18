@@ -14,32 +14,22 @@ import Button from '../../button'
 import styles from './signup-form.module.css'
 
 const SignupForm = () => {
-  // const [checkmail, mailidVerify] = useState(false)
-//   const responseSuccessGoogle = (response) => {
-//     // console.log(response)
-//     axios({
-//       method: 'POST',
-//       url: 'http://localhost:8080/api/googlelogin',
-//       data: {tokenId: response.tokenId}
-//     })
-//     .then(response => {
-//       console.log(response.data.status)
-//       return response.data.status
-//     })
-// }
-async function postData(token)  {
-  return axios({
+  const [verified, setVerified] = useState(false);
+  const [showmessage, setmessage] = useState(" ");
+  const responseSuccessGoogle = (response) => {
+    // console.log(response)
+    axios({
       method: 'POST',
       url: 'http://localhost:8080/api/googlelogin',
-      data: {tokenId: token}
+      data: {tokenId: response.tokenId}
     })
-    .then(response => response.data)
+    .then(response => {
+      // console.log(response.data.status)
+      setVerified(response.data.status)
+    })
 }
 
-const responseSuccessGoogle = (async (response) => {
-  return await postData(response.tokenId)
-})()
-console.log(responseSuccessGoogle)
+console.log(verified)
 
   const { setAuthState } = useContext(AuthContext)
   const { setIsComponentVisible } = useContext(ModalContext)
@@ -88,7 +78,21 @@ console.log(responseSuccessGoogle)
         handleSubmit,
         isSubmitting
       }) => (
+        
         <form onSubmit={handleSubmit} className={styles.form}>
+        <div style={{textAlign: "center"}}>
+        <GoogleLogin
+          clientId="613584530661-s728h4rlgc4f63tnjaeg13s7dvb19vnk.apps.googleusercontent.com"
+          buttonText={verified ? (<div style={{color:"green",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>Verified! 😍 </h3></div>) : 
+          (<div style={{color:"Red",fontWeight:"bold",fontFamily:"Comic Sans"}}>
+          <h3>Verify College Mail Id 🙄</h3></div>)}
+          disabled={verified}
+          onSuccess={responseSuccessGoogle}
+          cookiePolicy={'single_host_origin'}
+          className={styles.submitButton}
+          />
+          </div>
           <FormInput
             label="Username"
             type="text"
@@ -126,24 +130,13 @@ console.log(responseSuccessGoogle)
               errors.passwordConfirmation && errors.passwordConfirmation
             }
           />
-          <GoogleLogin
-          clientId="613584530661-s728h4rlgc4f63tnjaeg13s7dvb19vnk.apps.googleusercontent.com"
-          buttonText="Verify College Mail Id"
-          onSuccess={responseSuccessGoogle}
-          // onFailure={responseFailureGoogle}
-    cookiePolicy={'single_host_origin'}
-    className={styles.submitButton}
-            disabled={isSubmitting}
-            isLoading={loading}
-            type="submit"
-          />
-          <p className={styles.status}>{status}</p>
+          
           <p className={styles.status}>{status}</p>
           <Button
+          full
             primary
-            full
             className={styles.submitButton}
-            disabled={isSubmitting}
+            disabled={!verified}
             isLoading={loading}
             type="submit"
           >
