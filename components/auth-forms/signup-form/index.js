@@ -14,35 +14,32 @@ import Button from '../../button'
 import styles from './signup-form.module.css'
 
 const SignupForm = () => {
-  const responseSuccessGoogle = (response) => {
-    // console.log(response)
-    axios({
+  // const [checkmail, mailidVerify] = useState(false)
+//   const responseSuccessGoogle = (response) => {
+//     // console.log(response)
+//     axios({
+//       method: 'POST',
+//       url: 'http://localhost:8080/api/googlelogin',
+//       data: {tokenId: response.tokenId}
+//     })
+//     .then(response => {
+//       console.log(response.data.status)
+//       return response.data.status
+//     })
+// }
+async function postData(token)  {
+  return axios({
       method: 'POST',
       url: 'http://localhost:8080/api/googlelogin',
-      data: {tokenId: response.tokenId}
+      data: {tokenId: token}
     })
-    .then(response => {
-      console.log(response)
-    })
-
-    // axios.get('http://localhost:8080/api/googlelogin')
-    // .then(function (response) {
-    //   // handle success
-    //   console.log(response.data);
-    // })
-    // .catch(function (error) {
-    //   // handle error
-    //   console.log(error);
-    // })
-    // .then(function () {
-    //   // always executed
-    //   console.log("I will always execute")
-    // });
-  
+    .then(response => response.data)
 }
 
-
-
+const responseSuccessGoogle = (async (response) => {
+  return await postData(response.tokenId)
+})()
+console.log(responseSuccessGoogle)
 
   const { setAuthState } = useContext(AuthContext)
   const { setIsComponentVisible } = useContext(ModalContext)
@@ -140,6 +137,7 @@ const SignupForm = () => {
             isLoading={loading}
             type="submit"
           />
+          <p className={styles.status}>{status}</p>
           <p className={styles.status}>{status}</p>
           <Button
             primary
